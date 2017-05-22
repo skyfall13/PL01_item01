@@ -543,28 +543,24 @@ def run_func(op_code_node):
         """
         :type node: Node
         """
-        print("run_cond")
-        # o_node = node
-        # l_node = node.value
-        # r_node = l_node.next
-        #
-        # new_l_node = run_expr(l_node)
-        # new_r_node = run_expr(r_node)
-        #
-        # while (o_node is not None) :
-        #     if (l_node is TokenType.LIST):
-        #         l_node = l_node.value
-        #         if run_list(l_node) is TokenType.TRUE:
-        #             return Node(TokenType.INT, l_node.next.value)
-        #     else:
-        #         if run_list(l_node) is TokenType.TRUE:
-        #             return Node(TokenType.INT, r_node.value)
-        #     if o_node.next is None:
-        #         break
-        #     else:
-        #         o_node = o_node.next
+        l_node = node.value
+        r_node = l_node.next
 
+        while (l_node is not None):
+            if (l_node.type is TokenType.TRUE):
+                break
+                return Node(TokenType.INT, r_node.value)
+            else:
+                if (l_node.type is TokenType.LIST):
+                    if (run_list(l_node).type is TokenType.TRUE):
+                        break
+                        return Node(TokenType.INT, r_node.value)
+                    else:
+                        return run_cond(node.next)
+                else:
+                    return run_cond(node.next)
 
+        return Node(TokenType.INT, r_node.value)
 
         #Fill Out
 
